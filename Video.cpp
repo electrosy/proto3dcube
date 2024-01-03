@@ -61,15 +61,24 @@ void ley::Video::createRenderer() {
  
 }
 
+void ley::Video::render() {
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderDrawPoint(renderer, 10, 10);
+    SDL_RenderDrawPoint(renderer, 10, 20);
+    SDL_RenderDrawPoint(renderer, 20, 10);
+    SDL_RenderDrawPoint(renderer, 20, 20);
+}
+
 void ley::Video::present() {
 
     if(video_ready) {
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer);
     }
 }
 
 void ley::Video::clear() {
+    SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
     SDL_RenderClear(renderer);
 }
 

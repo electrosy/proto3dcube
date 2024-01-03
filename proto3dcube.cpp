@@ -11,13 +11,19 @@ int main() {
     ley::Command mCommand;
 
     while(programRunning) {
-
+        mVideoSystem.frameStart();
+        
+        mVideoSystem.render();
         mVideoSystem.present();
         mCommand = mInputSystem.pollEvents();
 
         if(mCommand == ley::Command::quit) {
             programRunning = false;
         }
+
+        mVideoSystem.clear();
+
+        mVideoSystem.frameDelay();
     }
 
     return 1;

@@ -34,7 +34,13 @@ ley::Command ley::Input::pollEvents() {
                 if(state[SDL_SCANCODE_RETURN]) {
                     command = ley::Command::enter;
                 }               
+
+                if(state[SDL_SCANCODE_ESCAPE]) {
+                    command = ley::Command::quit;
+                }               
+
                 break;
+
             default:
                 break;
         }

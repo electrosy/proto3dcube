@@ -19,6 +19,7 @@ public:
 
     void createRenderer();
     void createWindow();
+    void render();
     void present();
     void clear();
     void frameStart();
