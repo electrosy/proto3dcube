@@ -24,6 +24,9 @@ public:
     void clear();
     void frameStart();
     void frameDelay();
+    void drawVertex(SDL_Renderer* r, SDL_Vertex v);
+
+    void setDrawColor(SDL_Renderer*, SDL_Color c);
 
 };
 

@@ -10,6 +10,7 @@
                 "${workspaceFolder}/proto3dcube.cpp",
                 "${workspaceFolder}/Video.cpp",
                 "${workspaceFolder}/Input.cpp",
+                "${workspaceFolder}/Cube.cpp",
                 "-l",
                 "SDL2",
                 "-o",

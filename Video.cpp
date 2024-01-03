@@ -1,6 +1,7 @@
 #include <string>
 
 #include "Video.h"
+#include "Cube.h"
 
 const auto TARGET_FPS = 144;
 const auto DELAY_TIME = 1000.0f / TARGET_FPS;
@@ -61,13 +62,24 @@ void ley::Video::createRenderer() {
  
 }
 
+void ley::Video::setDrawColor(SDL_Renderer* r, SDL_Color c) {
+    SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
+}
+
+void ley::Video::drawVertex(SDL_Renderer* r, SDL_Vertex v) {
+    setDrawColor(r, v.color);
+    SDL_RenderDrawPoint(r, v.position.x, v.position.y);
+}
+
 void ley::Video::render() {
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDrawPoint(renderer, 10, 10);
-    SDL_RenderDrawPoint(renderer, 10, 20);
-    SDL_RenderDrawPoint(renderer, 20, 10);
-    SDL_RenderDrawPoint(renderer, 20, 20);
+    Cube cube1;
+
+    drawVertex(renderer, cube1.A());
+    drawVertex(renderer, cube1.B());
+    drawVertex(renderer, cube1.C());
+    drawVertex(renderer, cube1.D());
+    
 }
 
 void ley::Video::present() {
