@@ -11,6 +11,7 @@
                 "${workspaceFolder}/Video.cpp",
                 "${workspaceFolder}/Input.cpp",
                 "${workspaceFolder}/Cube.cpp",
+                "${workspaceFolder}/Transform.cpp",
                 "-l",
                 "SDL2",
                 "-o",

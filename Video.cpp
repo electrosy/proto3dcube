@@ -2,6 +2,7 @@
 
 #include "Video.h"
 #include "Cube.h"
+#include "Transform.h"
 
 const auto TARGET_FPS = 144;
 const auto DELAY_TIME = 1000.0f / TARGET_FPS;
@@ -69,6 +70,9 @@ void ley::Video::setDrawColor(SDL_Renderer* r, SDL_Color c) {
 void ley::Video::drawVertex(SDL_Renderer* r, SDL_Vertex v) {
     setDrawColor(r, v.color);
     SDL_RenderDrawPoint(r, v.position.x, v.position.y);
+    SDL_RenderDrawPoint(r, v.position.x+1, v.position.y);
+    SDL_RenderDrawPoint(r, v.position.x, v.position.y+1);
+    SDL_RenderDrawPoint(r, v.position.x+1, v.position.y+1);
 }
 
 void ley::Video::render() {
@@ -79,6 +83,20 @@ void ley::Video::render() {
     drawVertex(renderer, cube1.B());
     drawVertex(renderer, cube1.C());
     drawVertex(renderer, cube1.D());
+
+    Transform transformation;
+
+    SDL_FPoint p1 = transformation.rotate({cube1.A().position.x,cube1.A().position.y}, 20);
+    drawVertex(renderer, {p1.x, p1.y, cube1.A().color});
+
+    SDL_FPoint p2 = transformation.rotate({cube1.B().position.x,cube1.B().position.y}, 20);
+    drawVertex(renderer, {p2.x, p2.y, cube1.B().color});
+
+    SDL_FPoint p3 = transformation.rotate({cube1.C().position.x,cube1.C().position.y}, 20);
+    drawVertex(renderer, {p3.x, p3.y, cube1.C().color});
+
+    SDL_FPoint p4 = transformation.rotate({cube1.D().position.x,cube1.D().position.y}, 20);
+    drawVertex(renderer, {p4.x, p4.y, cube1.D().color});
     
 }
 
