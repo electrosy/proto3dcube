@@ -84,6 +84,26 @@ void ley::Video::render() {
     drawVertex(renderer, cube1.C());
     drawVertex(renderer, cube1.D());
 
+    setDrawColor(renderer, cube1.A().color);
+    SDL_RenderDrawLine(renderer, cube1.A().position.x, cube1.A().position.y, 
+                            cube1.B().position.x, cube1.B().position.y);
+
+    setDrawColor(renderer, cube1.B().color);
+    SDL_RenderDrawLine(renderer, cube1.B().position.x, cube1.B().position.y, 
+                            cube1.C().position.x, cube1.C().position.y);
+
+    setDrawColor(renderer, cube1.C().color);
+    SDL_RenderDrawLine(renderer, cube1.C().position.x, cube1.C().position.y, 
+                            cube1.D().position.x, cube1.D().position.y);
+
+    setDrawColor(renderer, cube1.D().color);
+    SDL_RenderDrawLine(renderer, cube1.D().position.x, cube1.D().position.y, 
+                            cube1.A().position.x, cube1.A().position.y);                     
+
+    
+    
+    
+    
     Transform transformation;
 
     SDL_FPoint p1 = transformation.rotate({cube1.A().position.x,cube1.A().position.y}, 20);
@@ -97,6 +117,23 @@ void ley::Video::render() {
 
     SDL_FPoint p4 = transformation.rotate({cube1.D().position.x,cube1.D().position.y}, 20);
     drawVertex(renderer, {p4.x, p4.y, cube1.D().color});
+
+
+    setDrawColor(renderer, cube1.A().color);
+    SDL_RenderDrawLine(renderer, p1.x, p1.y, 
+                            p2.x, p2.y);
+
+    setDrawColor(renderer, cube1.B().color);
+    SDL_RenderDrawLine(renderer, p2.x, p2.y, 
+                            p3.x, p3.y);
+
+    setDrawColor(renderer, cube1.C().color);
+    SDL_RenderDrawLine(renderer, p3.x, p3.y, 
+                            p4.x, p4.y);
+
+    setDrawColor(renderer, cube1.D().color);
+    SDL_RenderDrawLine(renderer, p4.x, p4.y, 
+                            p1.x, p1.y);                                                            
     
 }
 
