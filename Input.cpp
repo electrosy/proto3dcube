@@ -47,6 +47,22 @@ ley::Command ley::Input::pollEvents() {
                     command = ley::Command::down;
                 }
 
+                if(state[SDL_SCANCODE_LEFT]) {
+                    command = ley::Command::left;
+                }
+
+                if(state[SDL_SCANCODE_RIGHT]) {
+                    command = ley::Command::right;
+                }
+
+                if(state[SDL_SCANCODE_PAGEUP]) {
+                    command = ley::Command::pgup;
+                }
+
+                if(state[SDL_SCANCODE_PAGEDOWN]) {
+                    command = ley::Command::pgdown;
+                }
+
                 break;
 
             default:

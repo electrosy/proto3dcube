@@ -22,11 +22,23 @@ int main() {
         if(mCommand == ley::Command::quit) {
             programRunning = false;
         }
-        if(mCommand == ley::Command::up) {
+        if(mCommand == ley::Command::pgup) {
             mModel.degreeUp();
         }
-        if(mCommand == ley::Command::down) {
+        if(mCommand == ley::Command::pgdown) {
             mModel.degreeDown();
+        }
+        if(mCommand == ley::Command::up) {
+            mModel.up();
+        }
+        if(mCommand == ley::Command::down) {
+            mModel.down();
+        }
+        if(mCommand == ley::Command::left) {
+            mModel.left();
+        }
+        if(mCommand == ley::Command::right) {
+            mModel.right();
         }
 
         mVideoSystem.clear();
