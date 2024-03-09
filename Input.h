@@ -14,6 +14,8 @@ Date: Jan/2/2024
 namespace ley {
 
 enum class Command {
+    up,
+    down,
     enter,
     quit,
     none

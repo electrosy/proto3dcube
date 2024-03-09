@@ -20,13 +20,15 @@ const std::string SDL_VERSION_LINK_LABEL = "SDL Linked Version: ";
 
 const std::string APPLICATION_STRING = APPLICATION_NAME + " " + APPLICATION_VER + " " +  APPLICATION_PLATFORM + " " +  APPLICATION_REL_TYPE + " " + APPLICATION_ENV;
 
-ley::Video::Video()
+ley::Video::Video(ley::Model* model)
 :
 video_ready(true),
 window(nullptr),
 renderer(nullptr) {
     createWindow();
     createRenderer();
+
+    mModelPtr = model;
 }
 
 ley::Video::~Video() {
@@ -67,6 +69,8 @@ void ley::Video::setDrawColor(SDL_Renderer* r, SDL_Color c) {
     SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
 }
 
+
+//draw 4 pixels for each vertex.
 void ley::Video::drawVertex(SDL_Renderer* r, SDL_Vertex v) {
     setDrawColor(r, v.color);
     SDL_RenderDrawPoint(r, v.position.x, v.position.y);
@@ -83,6 +87,10 @@ void ley::Video::render() {
     drawVertex(renderer, cube1.B());
     drawVertex(renderer, cube1.C());
     drawVertex(renderer, cube1.D());
+
+    float xAdjust = - cube1.width() /2;
+    float yAdjust = - cube1.height() /2;
+
 
     setDrawColor(renderer, cube1.A().color);
     SDL_RenderDrawLine(renderer, cube1.A().position.x, cube1.A().position.y, 
@@ -103,19 +111,19 @@ void ley::Video::render() {
     
     
     
-    
+    // TODO this should be a static class.
     Transform transformation;
 
-    SDL_FPoint p1 = transformation.rotate({cube1.A().position.x,cube1.A().position.y}, 20);
+    SDL_FPoint p1 = transformation.rotate({cube1.A().position.x,cube1.A().position.y}, mModelPtr->getDegrees());
     drawVertex(renderer, {p1.x, p1.y, cube1.A().color});
 
-    SDL_FPoint p2 = transformation.rotate({cube1.B().position.x,cube1.B().position.y}, 20);
+    SDL_FPoint p2 = transformation.rotate({cube1.B().position.x,cube1.B().position.y}, mModelPtr->getDegrees());
     drawVertex(renderer, {p2.x, p2.y, cube1.B().color});
 
-    SDL_FPoint p3 = transformation.rotate({cube1.C().position.x,cube1.C().position.y}, 20);
+    SDL_FPoint p3 = transformation.rotate({cube1.C().position.x,cube1.C().position.y}, mModelPtr->getDegrees());
     drawVertex(renderer, {p3.x, p3.y, cube1.C().color});
 
-    SDL_FPoint p4 = transformation.rotate({cube1.D().position.x,cube1.D().position.y}, 20);
+    SDL_FPoint p4 = transformation.rotate({cube1.D().position.x,cube1.D().position.y}, mModelPtr->getDegrees());
     drawVertex(renderer, {p4.x, p4.y, cube1.D().color});
 
 

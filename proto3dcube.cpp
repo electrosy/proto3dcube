@@ -2,11 +2,13 @@
 
 #include "Input.h"
 #include "Video.h"
+#include "Model.h"
 
 int main() {
     bool programRunning = true;
 
-    ley::Video mVideoSystem;
+    ley::Model mModel;
+    ley::Video mVideoSystem(&mModel);
     ley::Input mInputSystem;
     ley::Command mCommand;
 
@@ -19,6 +21,12 @@ int main() {
 
         if(mCommand == ley::Command::quit) {
             programRunning = false;
+        }
+        if(mCommand == ley::Command::up) {
+            mModel.degreeUp();
+        }
+        if(mCommand == ley::Command::down) {
+            mModel.degreeDown();
         }
 
         mVideoSystem.clear();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include "Model.h"
 
 namespace ley {
 
@@ -12,9 +13,10 @@ private:
     bool video_ready = false;
     SDL_Window* window;
     SDL_Renderer* renderer;
+    ley::Model* mModelPtr;
 
 public:
-    Video();
+    Video(ley::Model* model);
     ~Video();
 
     void createRenderer();
