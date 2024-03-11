@@ -1,5 +1,11 @@
 #include "Model.h"
 
+ley::Model::Model()
+:
+mTimer{50, {0,0,0,0}} {
+
+}
+
 void ley::Model::setDegrees(float d) {
     mDegrees = d;
 }
@@ -34,5 +40,9 @@ void ley::Model::up() {
 
 void ley::Model::down() {
     mCube1.down();
+}
+
+ley::Timer* ley::Model::timer() {
+    return &mTimer;
 }
 

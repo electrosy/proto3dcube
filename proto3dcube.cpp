@@ -43,6 +43,13 @@ int main() {
 
         mVideoSystem.clear();
 
+        //update
+        mModel.timer()->runFrame();
+        if(mModel.timer()->hasExpired()) {
+            mModel.degreeUp();
+        }
+
+
         mVideoSystem.frameDelay();
     }
 

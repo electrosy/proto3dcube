@@ -13,6 +13,12 @@
                 "${workspaceFolder}/Cube.cpp",
                 "${workspaceFolder}/Transform.cpp",
                 "${workspaceFolder}/Model.cpp",
+                "${workspaceFolder}/Timer.cpp",
+                "${workspaceFolder}/Renderable.cpp",
+                "${workspaceFolder}/Clock.cpp",
+                "${workspaceFolder}/src/ProgressBar.cpp",
+                "${workspaceFolder}/src/RectContainer.cpp",
+                
                 "-l",
                 "SDL2",
                 "-o",

@@ -81,16 +81,10 @@ void ley::Video::drawVertex(SDL_Renderer* r, SDL_Vertex v) {
 
 void ley::Video::render() {
 
-    //Cube cube1;
-
     drawVertex(renderer, mModelPtr->cube().A());
     drawVertex(renderer, mModelPtr->cube().B());
     drawVertex(renderer, mModelPtr->cube().C());
     drawVertex(renderer, mModelPtr->cube().D());
-
-    //float xAdjust = - cube1.width() /2;
-    //float yAdjust = - cube1.height() /2;
-
 
     setDrawColor(renderer, mModelPtr->cube().A().color);
     SDL_RenderDrawLine(renderer, mModelPtr->cube().A().position.x, mModelPtr->cube().A().position.y, 
@@ -108,40 +102,37 @@ void ley::Video::render() {
     SDL_RenderDrawLine(renderer, mModelPtr->cube().D().position.x, mModelPtr->cube().D().position.y, 
                             mModelPtr->cube().A().position.x, mModelPtr->cube().A().position.y);                     
 
-    
-    
-    
-    // TODO this should be a static class.
-    Transform transformation;
 
-    SDL_FPoint p1 = transformation.rotate({mModelPtr->cube().A().position.x,mModelPtr->cube().A().position.y}, mModelPtr->getDegrees());
-    drawVertex(renderer, {p1.x, p1.y, mModelPtr->cube().A().color});
+    SDL_FPoint adjust = {mModelPtr->cube().x() + (mModelPtr->cube().width()/2), mModelPtr->cube().y() + (mModelPtr->cube().height()/2)};
 
-    SDL_FPoint p2 = transformation.rotate({mModelPtr->cube().B().position.x,mModelPtr->cube().B().position.y}, mModelPtr->getDegrees());
-    drawVertex(renderer, {p2.x, p2.y, mModelPtr->cube().B().color});
+    SDL_FPoint p1 = Transform::rotate(mModelPtr->cube().A(2).position, mModelPtr->getDegrees());
+    drawVertex(renderer, {p1.x + adjust.x, p1.y + adjust.y, mModelPtr->cube().A(2).color});
 
-    SDL_FPoint p3 = transformation.rotate({mModelPtr->cube().C().position.x,mModelPtr->cube().C().position.y}, mModelPtr->getDegrees());
-    drawVertex(renderer, {p3.x, p3.y, mModelPtr->cube().C().color});
+    SDL_FPoint p2 = Transform::rotate(mModelPtr->cube().B(2).position, mModelPtr->getDegrees());
+    drawVertex(renderer, {p2.x + adjust.x, p2.y + adjust.y, mModelPtr->cube().B(2).color});
 
-    SDL_FPoint p4 = transformation.rotate({mModelPtr->cube().D().position.x,mModelPtr->cube().D().position.y}, mModelPtr->getDegrees());
-    drawVertex(renderer, {p4.x, p4.y, mModelPtr->cube().D().color});
+    SDL_FPoint p3 = Transform::rotate(mModelPtr->cube().C(2).position, mModelPtr->getDegrees());
+    drawVertex(renderer, {p3.x + adjust.x, p3.y + adjust.y, mModelPtr->cube().C(2).color});
+
+    SDL_FPoint p4 = Transform::rotate(mModelPtr->cube().D(2).position, mModelPtr->getDegrees());
+    drawVertex(renderer, {p4.x + adjust.x, p4.y + adjust.y, mModelPtr->cube().D(2).color});
 
 
     setDrawColor(renderer, mModelPtr->cube().A().color);
-    SDL_RenderDrawLine(renderer, p1.x, p1.y, 
-                            p2.x, p2.y);
+    SDL_RenderDrawLine(renderer, p1.x + adjust.x, p1.y + adjust.y,
+                            p2.x + adjust.x, p2.y + adjust.y);
 
     setDrawColor(renderer, mModelPtr->cube().B().color);
-    SDL_RenderDrawLine(renderer, p2.x, p2.y, 
-                            p3.x, p3.y);
+    SDL_RenderDrawLine(renderer, p2.x + adjust.x, p2.y + adjust.y, 
+                            p3.x + adjust.x, p3.y + adjust.y);
 
     setDrawColor(renderer, mModelPtr->cube().C().color);
-    SDL_RenderDrawLine(renderer, p3.x, p3.y, 
-                            p4.x, p4.y);
+    SDL_RenderDrawLine(renderer, p3.x + adjust.x, p3.y + adjust.y, 
+                            p4.x + adjust.x, p4.y + adjust.y);
 
     setDrawColor(renderer, mModelPtr->cube().D().color);
-    SDL_RenderDrawLine(renderer, p4.x, p4.y, 
-                            p1.x, p1.y);                                                            
+    SDL_RenderDrawLine(renderer, p4.x + adjust.x, p4.y + adjust.y, 
+                            p1.x + adjust.x, p1.y + adjust.y);                                                            
     
 }
 

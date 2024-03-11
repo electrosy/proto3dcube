@@ -3,10 +3,6 @@
 
 #define PI 3.14159265
 
-ley::Transform::Transform() {
-
-}
-
 SDL_FPoint ley::Transform::rotate(SDL_FPoint p, float a) {
     
 

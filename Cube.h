@@ -20,13 +20,16 @@ public:
 
     Cube();
 
-    SDL_Vertex A();
-    SDL_Vertex B();
-    SDL_Vertex C();
-    SDL_Vertex D();
+    SDL_Vertex A(char atOrigin = 0);
+    SDL_Vertex B(char atOrigin = 0);
+    SDL_Vertex C(char atOrigin = 0);
+    SDL_Vertex D(char atOrigin = 0);
 
     float width();
     float height();
+
+    float x();
+    float y();
 
     void left();
     void right();
