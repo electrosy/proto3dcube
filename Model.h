@@ -12,6 +12,9 @@ private:
     Cube mCube1;
     Timer mTimer;
 
+    float mXoffset = 100;
+    float mYoffset = 100;
+
 public:
     Model();
     void setDegrees(float d);
@@ -26,6 +29,8 @@ public:
     void down();
 
     ley::Timer* timer();
+
+    SDL_FPoint offset();
 
 };
 

@@ -20,6 +20,7 @@ const std::string SDL_VERSION_LINK_LABEL = "SDL Linked Version: ";
 
 const std::string APPLICATION_STRING = APPLICATION_NAME + " " + APPLICATION_VER + " " +  APPLICATION_PLATFORM + " " +  APPLICATION_REL_TYPE + " " + APPLICATION_ENV;
 
+
 ley::Video::Video(ley::Model* model)
 :
 video_ready(true),
@@ -134,6 +135,36 @@ void ley::Video::render() {
     SDL_RenderDrawLine(renderer, p4.x + adjust.x, p4.y + adjust.y, 
                             p1.x + adjust.x, p1.y + adjust.y);                                                            
     
+
+
+
+    //points
+    float x_proj;
+    float y_proj;
+    for (int i = 0; i < 8; ++i) {
+        // Divide the x and y coordinates by the z coordinate to 
+        // project the point onto the canvas
+        projectedPoints[i].x = x_proj = corners[i][0] / -corners[i][2] * 300 + mModelPtr->offset().x;
+        projectedPoints[i].y = y_proj = corners[i][1] / -corners[i][2] * 300 + mModelPtr->offset().y;
+        //SDL_Log("Projected corner %d: x:%f, y:%f\n", i, x_proj, y_proj);
+        SDL_RenderDrawPointF(renderer, x_proj, y_proj);
+    }
+
+    
+    SDL_RenderDrawLineF(renderer, projectedPoints[0].x, projectedPoints[0].y, projectedPoints[1].x, projectedPoints[1].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[0].x, projectedPoints[0].y, projectedPoints[2].x, projectedPoints[2].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[2].x, projectedPoints[2].y, projectedPoints[3].x, projectedPoints[3].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[1].x, projectedPoints[1].y, projectedPoints[3].x, projectedPoints[3].y);
+
+    SDL_RenderDrawLineF(renderer, projectedPoints[4].x, projectedPoints[4].y, projectedPoints[5].x, projectedPoints[5].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[4].x, projectedPoints[4].y, projectedPoints[6].x, projectedPoints[6].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[6].x, projectedPoints[6].y, projectedPoints[7].x, projectedPoints[7].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[7].x, projectedPoints[7].y, projectedPoints[5].x, projectedPoints[5].y);
+
+    SDL_RenderDrawLineF(renderer, projectedPoints[0].x, projectedPoints[0].y, projectedPoints[4].x, projectedPoints[4].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[1].x, projectedPoints[1].y, projectedPoints[5].x, projectedPoints[5].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[2].x, projectedPoints[2].y, projectedPoints[6].x, projectedPoints[6].y);
+    SDL_RenderDrawLineF(renderer, projectedPoints[3].x, projectedPoints[3].y, projectedPoints[7].x, projectedPoints[7].y);
 }
 
 void ley::Video::present() {

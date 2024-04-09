@@ -28,21 +28,33 @@ ley::Cube ley::Model::cube() {
 
 void ley::Model::left() {
     mCube1.left();
+
+    mXoffset -= 1;
 }
 
 void ley::Model::right() {
     mCube1.right();
+
+    mXoffset += 1;
 }
 
 void ley::Model::up() {
     mCube1.up();
+
+    mYoffset -= 1;
 }
 
 void ley::Model::down() {
     mCube1.down();
+
+    mYoffset += 1;
 }
 
 ley::Timer* ley::Model::timer() {
     return &mTimer;
+}
+
+SDL_FPoint ley::Model::offset() {
+    return {mXoffset, mYoffset};
 }
 

@@ -12,8 +12,8 @@ SDL_FPoint ley::Transform::rotate(SDL_FPoint p, float a) {
     float x = p.x * cos(a) - p.y * sin(a);
     float y = p.x * sin(a) + p.y * cos(a);
     
-    SDL_Log("x:%f", x);
-    SDL_Log("y:%f", y);
+    //SDL_Log("x:%f", x);
+    //SDL_Log("y:%f", y);
 
     return {x,y};
 }

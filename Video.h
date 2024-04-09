@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include "Model.h"
 
+typedef float Point[3];
+
 namespace ley {
 
 class Video {
@@ -14,6 +16,18 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     ley::Model* mModelPtr;
+    Point corners[8] = {
+        {1, -1, -5},
+        {1, -1, -3},
+        {1, 1, -5},
+        {1, 1, -3},
+        {-1, -1, -5},
+        {-1, -1, -3},
+        {-1, 1, -5},
+        {-1, 1, -3},
+    };
+
+    SDL_Point projectedPoints[8];
 
 public:
     Video(ley::Model* model);
