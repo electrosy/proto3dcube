@@ -63,6 +63,26 @@ ley::Command ley::Input::pollEvents() {
                     command = ley::Command::pgdown;
                 }
 
+                if(state[SDL_SCANCODE_INSERT]) {
+                    command = ley::Command::ins;
+                }
+
+                if(state[SDL_SCANCODE_DELETE]) {
+                    command = ley::Command::del;
+                }
+
+                if(state[SDL_SCANCODE_HOME]) {
+                    command = ley::Command::home;
+                }
+
+                if(state[SDL_SCANCODE_END]) {
+                    command = ley::Command::end;
+                }
+
+                if(state[SDL_SCANCODE_SPACE]) {
+                    command = ley::Command::space;
+                }
+
                 break;
 
             default:

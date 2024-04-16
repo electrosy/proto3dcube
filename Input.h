@@ -14,15 +14,20 @@ Date: Jan/2/2024
 namespace ley {
 
 enum class Command {
-    pgup,
-    pgdown,
     up,
     down,
     left,
     right,
     enter,
     quit,
-    none
+    none,
+    ins,
+    del,
+    home,
+    end,
+    pgup,
+    pgdown,
+    space
     };
 
 class Input {

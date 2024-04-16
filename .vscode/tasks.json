@@ -18,6 +18,7 @@
                 "${workspaceFolder}/Clock.cpp",
                 "${workspaceFolder}/src/ProgressBar.cpp",
                 "${workspaceFolder}/src/RectContainer.cpp",
+                "${workspaceFolder}/src/Vec3.cpp",
                 
                 "-l",
                 "SDL2",

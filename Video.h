@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 #include "Model.h"
+#include "./inc/Vec3.h"
+#include "./inc/Matrix44.h"
 
 typedef float Point[3];
 
@@ -16,6 +18,8 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     ley::Model* mModelPtr;
+
+/*    
     Point corners[8] = {
         {1, -1, -5},
         {1, -1, -3},
@@ -25,6 +29,18 @@ private:
         {-1, -1, -3},
         {-1, 1, -5},
         {-1, 1, -3},
+    };
+*/
+
+    ley::Vec3<float> mVCorners[8] = {
+        { 1, -1, -5},
+         { 1, -1, -3},
+         { 1,  1, -5},
+         { 1,  1, -3},
+         {-1, -1, -5},
+         {-1, -1, -3},
+         {-1,  1, -5},
+         {-1,  1, -3}
     };
 
     SDL_Point projectedPoints[8];

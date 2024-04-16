@@ -1,7 +1,7 @@
 #include "Cube.h"
 
 ley::Cube::Cube() 
-:rect{300,300,200,200}
+:rect{400,300,200,200}
 {
 
 }

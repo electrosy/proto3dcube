@@ -11,6 +11,7 @@ private:
 public:
 
     static SDL_FPoint rotate(SDL_FPoint r, float a);
+    static float toRad(float pi);
 
 };
 }

@@ -4,6 +4,7 @@
 #OBJS defines files to compile as part of the project
 OBJS = proto3dcube.cpp Video.cpp Input.cpp Cube.cpp Model.cpp \
        Transform.cpp Timer.cpp Renderable.cpp Clock.cpp ./src/ProgressBar.cpp\
+	   ./src/Vec3.cpp
 		
 
 #OBJ_NAME name of executable

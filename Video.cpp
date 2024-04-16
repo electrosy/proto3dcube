@@ -3,6 +3,7 @@
 #include "Video.h"
 #include "Cube.h"
 #include "Transform.h"
+#include "./inc/Matrix44.h"
 
 const auto TARGET_FPS = 144;
 const auto DELAY_TIME = 1000.0f / TARGET_FPS;
@@ -137,30 +138,74 @@ void ley::Video::render() {
     
 
 
+    float radians = mModelPtr->ZDegrees() * 0.001;
+    Matrix44<float> rotZ;
+    rotZ[0][0] = cos(radians); rotZ[0][1] = sin(radians); rotZ[0][2] = 0;
+    rotZ[1][0] = -sin(radians); rotZ[1][1] = cos(radians); rotZ[1][2] = 0;
+    rotZ[2][0] = 0; rotZ[2][1] = 0; rotZ[2][2] = 1;
+
+    radians = mModelPtr->XDegrees() * 0.001;
+    Matrix44<float> rotX;
+    rotX[0][0] = 1; rotX[0][1] = 0; rotX[0][2] = 0;
+    rotX[1][0] = 0; rotX[1][1] = cos(radians); rotX[1][2] = sin(radians);
+    rotX[2][0] = 0; rotX[2][1] = -sin(radians); rotX[2][2] = cos(radians);
+
+    radians = mModelPtr->YDegrees() * 0.001;
+    Matrix44<float> rotY;
+    rotY[0][0] = cos(radians); rotY[0][1] = 0; rotY[0][2] = -sin(radians);
+    rotY[1][0] = 0; rotY[1][1] = 1; rotY[1][2] = 0;
+    rotY[2][0] = sin(radians); rotY[2][1] = 0; rotY[2][2] = cos(radians);
+
+    //normalize position of cube.
+    for(int i = 0; i < 8; ++i) {
+        mVCorners[i].z += 4;
+    }
+
+    //rotate each corner
+    for(int i = 0; i < 8; ++i) {
+        mVCorners[i] = rotZ.multVecMatrix(rotX.multVecMatrix(rotY.multVecMatrix(mVCorners[i])));
+    }
+
+    //now move the cube back into position
+    for(int i = 0; i < 8; ++i) {
+        mVCorners[i].z -= 4;
+    }
 
     //points
     float x_proj;
     float y_proj;
+    float x_proj_remap;
+    float y_proj_remap;
+    float x_proj_pix;
+    float y_proj_pix;
+    const unsigned int image_width = 512, image_height = 512;
     for (int i = 0; i < 8; ++i) {
         // Divide the x and y coordinates by the z coordinate to 
         // project the point onto the canvas
-        projectedPoints[i].x = x_proj = corners[i][0] / -corners[i][2] * 300 + mModelPtr->offset().x;
-        projectedPoints[i].y = y_proj = corners[i][1] / -corners[i][2] * 300 + mModelPtr->offset().y;
+        x_proj = mVCorners[i].x / -mVCorners[i].z;
+        y_proj = mVCorners[i].y / -mVCorners[i].z;
+        x_proj_remap = (1 + x_proj) / 2;
+        y_proj_remap = (1 + y_proj) / 2;
+        projectedPoints[i].x = x_proj_pix = x_proj_remap * image_width + mModelPtr->offset().x;
+        projectedPoints[i].y = y_proj_pix = y_proj_remap * image_height + mModelPtr->offset().y;
         //SDL_Log("Projected corner %d: x:%f, y:%f\n", i, x_proj, y_proj);
-        SDL_RenderDrawPointF(renderer, x_proj, y_proj);
+        SDL_RenderDrawPointF(renderer, x_proj_pix, y_proj_pix);
     }
 
-    
+
+    setDrawColor(renderer, red);
     SDL_RenderDrawLineF(renderer, projectedPoints[0].x, projectedPoints[0].y, projectedPoints[1].x, projectedPoints[1].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[0].x, projectedPoints[0].y, projectedPoints[2].x, projectedPoints[2].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[2].x, projectedPoints[2].y, projectedPoints[3].x, projectedPoints[3].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[1].x, projectedPoints[1].y, projectedPoints[3].x, projectedPoints[3].y);
 
+    setDrawColor(renderer, blue);
     SDL_RenderDrawLineF(renderer, projectedPoints[4].x, projectedPoints[4].y, projectedPoints[5].x, projectedPoints[5].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[4].x, projectedPoints[4].y, projectedPoints[6].x, projectedPoints[6].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[6].x, projectedPoints[6].y, projectedPoints[7].x, projectedPoints[7].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[7].x, projectedPoints[7].y, projectedPoints[5].x, projectedPoints[5].y);
 
+    setDrawColor(renderer, green);
     SDL_RenderDrawLineF(renderer, projectedPoints[0].x, projectedPoints[0].y, projectedPoints[4].x, projectedPoints[4].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[1].x, projectedPoints[1].y, projectedPoints[5].x, projectedPoints[5].y);
     SDL_RenderDrawLineF(renderer, projectedPoints[2].x, projectedPoints[2].y, projectedPoints[6].x, projectedPoints[6].y);
